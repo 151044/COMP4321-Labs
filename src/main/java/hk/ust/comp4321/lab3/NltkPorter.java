@@ -323,6 +323,13 @@ public class NltkPorter {
         // we use NLTK extended rule here
         return applyRules(word, RULES_1C);
     }
+    private static String safeSubstring(String word, int start, int end) {
+        if (start > end) {
+            return "";
+        } else {
+            return word.substring(start, end);
+        }
+    }
     private static final List<SuffixRule> RULES_2 = new ArrayList<>();
     static {
         // as much as I hate these blocks...
@@ -346,7 +353,7 @@ public class NltkPorter {
         RULES_2.add(new SuffixRule("aliti", "al", NltkPorter::hasPositiveMeasure));
         RULES_2.add(new SuffixRule("iviti", "ive", NltkPorter::hasPositiveMeasure));
         RULES_2.add(new SuffixRule("biliti", "ble", NltkPorter::hasPositiveMeasure));
-        RULES_2.add(new SuffixRule("logi", "log", word -> hasPositiveMeasure(word.substring(0, word.length() - 3))));
+        RULES_2.add(new SuffixRule("logi", "log", word -> hasPositiveMeasure(safeSubstring(word, 0, word.length() - 3))));
     }
     /**
      * Implements Step 2 from "An algorithm for suffix stripping"
