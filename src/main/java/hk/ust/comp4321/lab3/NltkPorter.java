@@ -292,7 +292,7 @@ public class NltkPorter {
         for (String suffix : INTERMEDIATE_1B) {
             if (word.endsWith(suffix)) {
                 String intermediateStem = replaceSuffix(word, suffix, "");
-                if (hasVowel(word)) {
+                if (hasVowel(intermediateStem)) {
                     // Do a copy and insert our own new rule
                     List<SuffixRule> suffixRules = new ArrayList<>(RULES_1B);
                     suffixRules.add(new SuffixRule("*d", intermediateStem.charAt(intermediateStem.length() - 1) + "",
